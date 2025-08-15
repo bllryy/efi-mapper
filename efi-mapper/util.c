@@ -128,4 +128,53 @@ typedef struct _IMAGE_SECTION_HEADER {
     UINT32 Characteristics;
 } IMAGE_SECTION_HEADER, * PIMAGE_SECTION_HEADER;
 
-//todo
+// import table structures
+
+typedef struct _IMAGE_IMPORT_DESCRIPTOR {
+    union {
+        UINT32 Characteristics;
+        UINT32 OriginalFirstThunk;
+    };
+    UINT32 TimeDateStamp;
+    UINT32 ForwarderChain;
+    UINT32 Name;
+    UINT32 FirstThunk;
+} IMAGE_IMPORT_DESCRIPTOR, * PIMAGE_IMPORT_DESCRIPTOR;
+
+
+typedef struct _IMAGE_IMPORT_BY_NAME {
+    UINT16 Hint;
+    CHAR8  Name[1];
+} IMAGE_IMPORT_BY_NAME, * PIMAGE_IMPORT_BY_NAME;
+
+#pragma pack(pop)
+
+// Directory entry 
+#define IMAGE_DIRECTORY_ENTRY_IMPORT    1
+#define IMAGE_DIRECTORY_ENTRY_BASERELOC 5
+
+//
+// function declarations
+//
+
+// mem management
+VOID* AllocateZeroPool(IN UINTN Size);
+VOID FreePool(IN VOID* Buffer);
+
+// file operations
+EFI_STATUS ReadFileFromESP(IN CHAR16* FileName, OUT VOID** FileBuffer, OUT UINTN* FileSize);
+
+// PE parsing utilities
+BOOLEAN IsValidPE(IN VOID* ImageBase);
+PIMAGE_NT_HEADERS GetNtHeaders(IN VOID* ImageBase);
+PIMAGE_SECTION_HEADER GetFirstSectionHeader(IN PIMAGE_NT_HEADERS NtHeaders);
+
+// utility functions
+UINTN AlignUp(IN UINTN Value, IN UINTN Alignment);
+INTN AsciiStrCmp(IN CONST CHAR8* String1, IN CONST CHAR8* String2);
+UINTN AsciiStrLen(IN CONST CHAR8* String);
+VOID MemCopy(IN VOID* Dest, IN CONST VOID* Src, IN UINTN Size);
+VOID MemSet(IN VOID* Buffer, IN UINT8 Value, IN UINTN Size);
+VOID PrintDebug(IN CHAR16* Format, ...);
+
+#endif // _UTIL_H_
