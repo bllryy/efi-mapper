@@ -21,5 +21,8 @@
     <ClCompile Include="efi_boilerplate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="util.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
