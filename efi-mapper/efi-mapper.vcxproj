@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="efi_boilerplate.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="mmap.c" />
     <ClCompile Include="util.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
